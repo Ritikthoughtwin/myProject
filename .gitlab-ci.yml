@@ -1,0 +1,33 @@
+# Specify the image to use for the job
+image: node:latest
+
+# Define stages of the pipeline
+stages:
+  - build
+  - test
+  - deploy
+
+# Job to install dependencies and build the React app
+build:
+  stage: build
+  script:
+    - npm install
+    - npm run build
+  artifacts:
+    paths:
+      - build/
+
+# Job to run tests
+test:
+  stage: test
+  script:
+    - npm test
+
+# Job to deploy the React app
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploying your React app..."
+    # Add your deployment commands here, such as deploying to a server or hosting service
+  only:
+    - master # Only deploy when changes are pushed to the master branch
